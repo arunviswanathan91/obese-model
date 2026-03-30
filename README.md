@@ -9,7 +9,7 @@ An interactive signature browser is available at [obese-pdac-model.streamlit.app
 <p align="center">
   <img src="images/methodology.SVG" width="550" alt="Computational Framework for BMI-Stratified PDAC Analysis">
   <br>
-  <em> A multi-resolution computational workflow examining how body mass index (BMI) shapes the tumor microenvironment (TME) in pancreatic ductal adenocarcinoma (PDAC). The pipeline integrates BMI-stratified patient cohorts with layered analytical modules to resolve immune, stromal, and metabolic reprogramming across obesity-associated PDAC subtypes.</em>
+  <sub> A multi-resolution computational workflow examining how body mass index (BMI) shapes the tumor microenvironment (TME) in pancreatic ductal adenocarcinoma (PDAC). The pipeline integrates BMI-stratified patient cohorts with layered analytical modules to resolve immune, stromal, and metabolic reprogramming across obesity-associated PDAC subtypes.</sub>
 </p>
 
 
@@ -87,6 +87,21 @@ STABL feature selection was applied in both categorical (L1 logistic regression)
 ---
 
 ### 6. Bayesian Modelling ([`05_modeling/`](05_modeling/))
+
+<p align="center">
+  <img src="images/methodology.SVG" width="550" alt="Bayesian Hierarchical Modeling Framework">
+  <br>
+  <sub>
+  <strong>Figure 1. Bayesian hierarchical modeling architectures.</strong>
+  (A) <strong>Categorical Model:</strong> Posterior distributions of mean signature expression (Z-score)
+  across Normal (blue), Overweight (orange), and Obese (red) cohorts. Regression coefficients (β)
+  denote effect sizes relative to Normal; dashed arrow indicates the derived contrast
+  (β<sub>Obese</sub> − β<sub>Overweight</sub>).
+  (B) <strong>Continuous Model:</strong> Linear regression of signature expression against BMI (kg/m²).
+  The slope (β<sub>BMI</sub>) quantifies directional association strength (ΔSignature/ΔBMI).
+  Shaded regions represent the 95% Highest Density Interval (HDI).
+  </sub>
+</p>
 
 Two complementary hierarchical Bayesian models were implemented in PyMC:
 

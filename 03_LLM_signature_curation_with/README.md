@@ -51,6 +51,7 @@ For each cell type, Gemini was prompted to suggest up to **3 missing signatures*
 | ------------------ | -------------------------------------------------------------------------------------- |
 | API                | Google Gemini (google-generativeai)                                                    |
 | Model              | gemini-2.5-flash |
+| Temperature | 0.2 (Low Hallucinations) |
 | Context            | Pancreatic Cancer (PDAC) + Obesity                                                     |
 | Response format    | JSON only                                                                              |
 | Retries on failure | 3 (with backoff)                                                                       |

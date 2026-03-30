@@ -4,6 +4,8 @@ This repository contains the full analysis pipeline for a study examining how bo
 
 An interactive signature browser is available at [obese-pdac-model.streamlit.app](https://obese-pdac-model.streamlit.app).
 
+**Methodology**
+![Interactome chord diagram](images/methodology.SVG)
 ---
 
 ## Patient Cohort

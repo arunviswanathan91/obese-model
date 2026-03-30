@@ -9,8 +9,7 @@ An interactive signature browser is available at [obese-pdac-model.streamlit.app
 <p align="center">
   <img src="images/methodology.SVG" width="450" alt="Computational Framework for BMI-Stratified PDAC Analysis">
   <br>
-  <strong>Figure 1. Methodology.</strong>
-  <sub> A multi-resolution computational workflow examining how body mass index (BMI) shapes the tumor microenvironment (TME) in pancreatic ductal adenocarcinoma (PDAC). The pipeline integrates BMI-stratified patient cohorts with layered analytical modules to resolve immune, and stromal across obesity-associated PDAC subtypes.</sub>
+  <sub><strong>Figure 1. Methodology.</strong> A multi-resolution computational workflow examining how body mass index (BMI) shapes the tumor microenvironment (TME) in pancreatic ductal adenocarcinoma (PDAC). The pipeline integrates BMI-stratified patient cohorts with layered analytical modules to resolve immune, and stromal across obesity-associated PDAC subtypes.</sub>
 </p>
 
 

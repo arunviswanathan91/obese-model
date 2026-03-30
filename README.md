@@ -89,7 +89,7 @@ STABL feature selection was applied in both categorical (L1 logistic regression)
 ### 6. Bayesian Modelling ([`05_modeling/`](05_modeling/))
 
 <p align="center">
-  <img src="images/methodology.SVG" width="550" alt="Bayesian Hierarchical Modeling Framework">
+  <img src="images/graph_model.SVG" width="550" alt="Bayesian Hierarchical Modeling Framework">
   <br>
   <sub>
   <strong>Figure 1. Bayesian hierarchical modeling architectures.</strong>

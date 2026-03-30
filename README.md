@@ -134,3 +134,8 @@ Cox regression identified prognostic gene pairs, and permutation-based FDR (100 
 | Convergence     | R-hat < 1.01; ESS > 400                                          |
 
 ---
+---
+
+## Citation
+
+Citation details will be provided upon publication of the associated manuscript.

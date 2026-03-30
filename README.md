@@ -9,7 +9,8 @@ An interactive signature browser is available at [obese-pdac-model.streamlit.app
 <p align="center">
   <img src="images/methodology.SVG" width="450" alt="Computational Framework for BMI-Stratified PDAC Analysis">
   <br>
-  <sub> A multi-resolution computational workflow examining how body mass index (BMI) shapes the tumor microenvironment (TME) in pancreatic ductal adenocarcinoma (PDAC). The pipeline integrates BMI-stratified patient cohorts with layered analytical modules to resolve immune, stromal, and metabolic reprogramming across obesity-associated PDAC subtypes.</sub>
+  <strong>Figure 1. Methodology.</strong>
+  <sub> A multi-resolution computational workflow examining how body mass index (BMI) shapes the tumor microenvironment (TME) in pancreatic ductal adenocarcinoma (PDAC). The pipeline integrates BMI-stratified patient cohorts with layered analytical modules to resolve immune, and stromal across obesity-associated PDAC subtypes.</sub>
 </p>
 
 
@@ -92,7 +93,7 @@ STABL feature selection was applied in both categorical (L1 logistic regression)
   <img src="images/graph_model.SVG" width="450" alt="Bayesian Hierarchical Modeling Framework">
   <br>
   <sub>
-  <strong>Figure 1. Bayesian hierarchical modeling architectures.</strong>
+  <strong>Figure 2. Bayesian hierarchical modeling.</strong>
   (A) <strong>Categorical Model:</strong> Posterior distributions of mean signature expression (Z-score)
   across Normal (blue), Overweight (orange), and Obese (red) cohorts. Regression coefficients (β)
   denote effect sizes relative to Normal; dashed arrow indicates the derived contrast

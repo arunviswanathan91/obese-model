@@ -88,6 +88,14 @@ STABL feature selection was applied in both categorical (L1 logistic regression)
 
 ### 6. Bayesian Modelling ([`05_modeling/`](05_modeling/))
 
+Two complementary hierarchical Bayesian models were implemented in PyMC:
+
+- **Continuous model**: Estimates BMI-associated slopes per feature using partial pooling
+- **Categorical model**: Estimates group effects (overweight and obese relative to normal-weight)
+
+Sampling was performed using NUTS (4 chains, 2,000 draws, target acceptance = 0.99). Credibility was assessed using 95% highest density intervals (HDI), and practical significance was evaluated using ROPE thresholds.
+
+A separate module compares continuous and categorical model outputs.
 <p align="center">
   <img src="images/graph_model.SVG" width="450" alt="Bayesian Hierarchical Modeling Framework">
   <br>
@@ -102,15 +110,6 @@ STABL feature selection was applied in both categorical (L1 logistic regression)
   Shaded regions represent the 95% Highest Density Interval (HDI).
   </sub>
 </p>
-
-Two complementary hierarchical Bayesian models were implemented in PyMC:
-
-- **Continuous model**: Estimates BMI-associated slopes per feature using partial pooling
-- **Categorical model**: Estimates group effects (overweight and obese relative to normal-weight)
-
-Sampling was performed using NUTS (4 chains, 2,000 draws, target acceptance = 0.99). Credibility was assessed using 95% highest density intervals (HDI), and practical significance was evaluated using ROPE thresholds.
-
-A separate module compares continuous and categorical model outputs.
 
 ---
 

@@ -4,7 +4,7 @@ This repository contains the full analysis pipeline for a study examining how bo
 
 An interactive signature browser is available at [obese-pdac-model.streamlit.app](https://obese-pdac-model.streamlit.app).
 
-*Citation details will be provided upon publication of the associated manuscript. Interim DOI to cite the repo is* [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19386461-blue)](https://doi.org/10.5281/zenodo.19386461)
+*Citation details will be provided upon publication of the associated manuscript. Interim DOI to cite the repo is* [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19386461-blue)] [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://obese-pdac-model.streamlit.app/) [![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md-dark.svg)](https://huggingface.co/datasets/arunviswanathan91/cell-analysis-vectors) [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/arunviswanathan91/cell-analysis-rag-api)(https://doi.org/10.5281/zenodo.19386461)
 ## Methodology
 
 <p align="center">

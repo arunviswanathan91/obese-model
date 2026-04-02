@@ -3,7 +3,7 @@
 This repository contains the full analysis pipeline for a study examining how body mass index (BMI) shapes the immune and stromal microenvironment of pancreatic ductal adenocarcinoma (PDAC). Bulk RNA-seq, single-cell deconvolution, Bayesian modelling, and immune signature analysis are combined to characterise BMI-associated transcriptomic changes across 140 CPTAC-PDAC patients stratified into normal-weight, overweight, and obese groups.
 
 An interactive signature browser is available at [obese-pdac-model.streamlit.app](https://obese-pdac-model.streamlit.app).
-
+*Citation details will be provided upon publication of the associated manuscript. Interim DOI to cite the repo is* [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19386461-blue)](https://doi.org/10.5281/zenodo.19386461)
 ## Methodology
 
 <p align="center">

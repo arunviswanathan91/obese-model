@@ -1,4 +1,4 @@
-# Obesity and the PDAC Immune Microenvironment
+# Obesity-Driven Pancreatic Cancer: A Machine Learning Based Bayesian Model and Interactome analysis
 
 This repository contains the full analysis pipeline for a study examining how body mass index (BMI) shapes the immune and stromal microenvironment of pancreatic ductal adenocarcinoma (PDAC). Bulk RNA-seq, single-cell deconvolution, Bayesian modelling, and immune signature analysis are combined to characterise BMI-associated transcriptomic changes across 140 CPTAC-PDAC patients stratified into normal-weight, overweight, and obese groups.
 

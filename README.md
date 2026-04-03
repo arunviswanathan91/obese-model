@@ -134,6 +134,22 @@ Cox regression identified prognostic gene pairs, and permutation-based FDR (100 
 | Bayesian models | NUTS; 4 chains; 2,000 draws; target acceptance = 0.99            |
 | Convergence     | R-hat < 1.01; ESS > 400                                          |
 
+## Compute Environment
+
+All notebooks were developed and executed in Google Colab.
+Notebooks use Colab-specific syntax (`%%R`, `%load_ext rpy2.ipython`)
+and `/content/drive/MyDrive/` paths that require adjustment for
+local execution. To reproduce analyses, upload notebooks to Colab,
+mount Google Drive, and update file paths accordingly.
+
+## Data Availability
+
+| Dataset | Accession | Description |
+|---------|-----------|-------------|
+| CD45+ immune scRNA-seq | GSE235452 (GSM7502530) | Immune reference |
+| Whole-tumour scRNA-seq | GSE242230 | Non-immune reference |
+| Bulk RNA-seq (CPTAC-PDAC) | Via GDC using TCGAbiolinks | 140 patients |
+| Signature database | Zenodo DOI / Streamlit app | 2,143 signatures |
 ---
 
 ## Citation

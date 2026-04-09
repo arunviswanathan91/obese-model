@@ -3,14 +3,19 @@
 This repository contains the full analysis pipeline for a study examining how body mass index (BMI) shapes the immune and stromal microenvironment of pancreatic ductal adenocarcinoma (PDAC). Bulk RNA-seq, single-cell deconvolution, Bayesian modelling, and immune signature analysis are combined to characterise BMI-associated transcriptomic changes across 140 CPTAC-PDAC patients stratified into normal-weight, overweight, and obese groups.
 
 An interactive signature browser is available at [obese-pdac-model.streamlit.app](https://obese-pdac-model.streamlit.app).
-
+<p align="center">
+  <img src="images/abstract.svg" width="550" alt="Abstract Image">
+  <br>
+  <sub><strong>Figure 1. </strong> Abstract illustration</sub>
+</p>
+ 
 *Citation details will be provided upon publication of the associated manuscript. Interim DOI to cite the repo is* [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19386461-blue)](https://doi.org/10.5281/zenodo.19386461) [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://obese-pdac-model.streamlit.app/) [![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md-dark.svg)](https://huggingface.co/datasets/arunviswanathan91/cell-analysis-vectors) [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/arunviswanathan91/cell-analysis-rag-api)
 ## Methodology
 
 <p align="center">
   <img src="images/methodology.SVG" width="450" alt="Computational Framework for BMI-Stratified PDAC Analysis">
   <br>
-  <sub><strong>Figure 1. Methodology.</strong> A multi-resolution computational workflow examining how body mass index (BMI) shapes the tumor microenvironment (TME) in pancreatic ductal adenocarcinoma (PDAC). The pipeline integrates BMI-stratified patient cohorts with layered analytical modules to resolve immune, and stromal across obesity-associated PDAC subtypes.</sub>
+  <sub><strong>Figure 2. Methodology.</strong> A multi-resolution computational workflow examining how body mass index (BMI) shapes the tumor microenvironment (TME) in pancreatic ductal adenocarcinoma (PDAC). The pipeline integrates BMI-stratified patient cohorts with layered analytical modules to resolve immune, and stromal across obesity-associated PDAC subtypes.</sub>
 </p>
 
 

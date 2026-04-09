@@ -42,6 +42,7 @@ Data source: CPTAC-PDAC primary tumours via GDC (`TCGAbiolinks`), raw STAR count
 | [`04_zscore_normalization_and_stabl_selection/`](04_zscore_normalization_and_stabl_selection/) | Signature scoring and STABL feature selection                    |
 | [`05_modeling/`](05_modeling/)                                                                 | Bayesian modelling (categorical, continuous, and comparison)     |
 | [`06_timigp/`](06_timigp/)                                                                     | Immune cell–cell interaction network analysis                    |
+| [`07_gigaTIME/`](07_gigaTIME/)                                                                 | GigaTIME virtual spatial proteomics and BMI-stratified figures   |
 
 ---
 
@@ -124,6 +125,14 @@ A separate module compares continuous and categorical model outputs.
 The TimiGP framework was applied to infer immune cell–cell interactions from bulk RNA-seq data (normal-weight and overweight groups).
 
 Cox regression identified prognostic gene pairs, and permutation-based FDR (100 iterations) was used to construct interaction networks. Cell-type interaction favourability scores were computed.
+
+---
+
+### 8. GigaTIME Virtual Spatial Proteomics ([`07_gigaTIME/`](07_gigaTIME/))
+
+GigaTIME was applied to whole-slide H&E images from the CPTAC-PDAC cohort (~168 patients) to generate virtual multiplexed immunofluorescence (mIF) maps across 21 protein markers (PD-1, CD14, CD4, T-bet, CD34, CD68, CD16, CD11c, CD138, CD20, CD3, CD8, PD-L1, CK, Ki67, Tryptase, Actin-D, Caspase3-D, PHH3-B, Transgelin, DAPI).
+
+Slides were downloaded from the NCI Imaging Data Commons and quality-controlled via a patch-sampled slide census. Inference used a continuous 256 px sliding window (128 px stride, 50% overlap) with a fast CK probe to select the most tumour-enriched tissue section per patient. Per-patient activation densities and spatial metrics (CD8-to-tumour distance, Transgelin–CD8 Dice overlap, CD11c-to-CD8 distance) were compared across BMI groups using Kruskal-Wallis and pairwise Mann-Whitney U tests with BH correction.
 
 ---
 

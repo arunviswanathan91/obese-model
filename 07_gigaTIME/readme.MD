@@ -189,30 +189,6 @@ The final publication figure compares protein scores and spatial metrics across 
 
 ---
 
-## Directory Structure
-
-```text
-cptac_gigatime/                  ← Google Drive base
-├── wsi_raw/                     ← Downloaded DICOM slides
-├── scores/
-│   ├── slide_file_stats.csv
-│   ├── dataset_census*.csv
-│   ├── patients_to_run.json
-│   ├── patients_to_skip.json
-│   ├── virtual_mif_scores.csv
-│   ├── done_patients.json
-│   └── canvases/                ← Per-patient .npz canvases
-└── results/
-    ├── dataset_census_all_patients.png
-    ├── dataset_census_metrics.png
-    ├── slide_classification.png
-    ├── gigatime_spatial_metrics.csv
-    ├── gigatime_final_figure_v4.pdf
-    └── gigatime_final_figure_v4.png
-```
-
----
-
 ## Dependencies
 
 ```text

@@ -107,7 +107,7 @@ A separate module compares continuous and categorical model outputs.
   <img src="images/graph_model.SVG" width="450" alt="Bayesian Hierarchical Modeling Framework">
   <br>
   <sub>
-  <strong>Figure 2. Bayesian hierarchical modeling.</strong>
+  <strong>Figure 3. Bayesian hierarchical modeling.</strong>
   (A) <strong>Categorical Model:</strong> Posterior distributions of mean signature expression (Z-score)
   across Normal (blue), Overweight (orange), and Obese (red) cohorts. Regression coefficients (β)
   denote effect sizes relative to Normal; dashed arrow indicates the derived contrast

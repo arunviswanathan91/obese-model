@@ -23,7 +23,7 @@ except ImportError:
 # CONFIGURATION
 # ============================================================================
 
-GEMINI_API_KEY = "AIzaSyDDA3Mgbz8uXMhDE-2_hcKIN0GaWuugY14"  # ⚠️ REPLACE THIS
+GEMINI_API_KEY = "API_KEY_HERE"  #  REPLACE THIS
 
 # File Paths
 JSON_PATH = "/content/drive/MyDrive/new_dysfunction/signature/Corrected_Signatures_02112025.json"

@@ -130,7 +130,7 @@ Cox regression identified prognostic gene pairs, and permutation-based FDR (100 
 
 ### 8. GigaTIME Virtual Spatial Proteomics ([`07_gigaTIME/`](07_gigaTIME/))
 
-GigaTIME was applied to whole-slide H&E images from the CPTAC-PDAC cohort (~168 patients) to generate virtual multiplexed immunofluorescence (mIF) maps across 21 protein markers (PD-1, CD14, CD4, T-bet, CD34, CD68, CD16, CD11c, CD138, CD20, CD3, CD8, PD-L1, CK, Ki67, Tryptase, Actin-D, Caspase3-D, PHH3-B, Transgelin, DAPI).
+GigaTIME was applied to whole-slide H&E images from the CPTAC-PDAC cohort (a totlat of 168 patients) to generate virtual multiplexed immunofluorescence (mIF) maps across 21 protein markers (PD-1, CD14, CD4, T-bet, CD34, CD68, CD16, CD11c, CD138, CD20, CD3, CD8, PD-L1, CK, Ki67, Tryptase, Actin-D, Caspase3-D, PHH3-B, Transgelin, DAPI).
 
 Slides were downloaded from the NCI Imaging Data Commons and quality-controlled via a patch-sampled slide census. Inference used a continuous 256 px sliding window (128 px stride, 50% overlap) with a fast CK probe to select the most tumour-enriched tissue section per patient. Per-patient activation densities and spatial metrics (CD8-to-tumour distance, Transgelin–CD8 Dice overlap, CD11c-to-CD8 distance) were compared across BMI groups using Kruskal-Wallis and pairwise Mann-Whitney U tests with BH correction.
 
@@ -143,10 +143,11 @@ Slides were downloaded from the NCI Imaging Data Commons and quality-controlled 
 | DESeq2          | Design: `~ condition`                                            |
 | GSEA            | Ranked by Wald stat; minGSSize = 10, maxGSSize = 500, FDR < 0.05 |
 | ssGSEA          | VST input; Kruskal-Wallis + Dunn BH; adj.p < 0.05                |
-| BayesPrism      | chain.length = 2,000; burn.in = 500; thinning = 2                |
-| STABL           | 500 bootstraps; sample_fraction = 0.5; knockoff FDR; 8 seeds     |
+| [BayesPrism](https://github.com/Danko-Lab/BayesPrism)      | chain.length = 2,000; burn.in = 500; thinning = 2                |
+| [STABL](https://github.com/gregbellan/Stabl)           | 500 bootstraps; sample_fraction = 0.5; knockoff FDR; 8 seeds     |
 | Bayesian models | NUTS; 4 chains; 2,000 draws; target acceptance = 0.99            |
 | Convergence     | R-hat < 1.01; ESS > 400                                          |
+| [GigaTIME](https://github.com/prov-gigatime/GigaTIME/)        | 256×256-pixel, 128-pixel stride, Kruskal-Wallis + Mann-whitney U test + BH; adj.p < 0.05 |
 
 ## Compute Environment
 
@@ -154,7 +155,7 @@ All notebooks were developed and executed in Google Colab.
 Notebooks use Colab-specific syntax (`%%R`, `%load_ext rpy2.ipython`)
 and `/content/drive/MyDrive/` paths that require adjustment for
 local execution. To reproduce analyses, upload notebooks to Colab,
-mount Google Drive, and update file paths accordingly.
+mount Google Drive, and update file paths accordingly. gigaTIME was ran in A-100 GPU with High RAM, rest of the analysis were ran in CPU with high RAM. 
 
 ## Data Availability
 
@@ -164,6 +165,7 @@ mount Google Drive, and update file paths accordingly.
 | Whole-tumour scRNA-seq | GSE242230 | Non-immune reference |
 | Bulk RNA-seq (CPTAC-PDAC) | Via GDC using TCGAbiolinks | 140 patients |
 | Signature database | Zenodo DOI / Streamlit app | 2,143 signatures |
+| H&E DICOM images (CPTAC-PDA) | NCI Imaging Data Commons | 168 patients 
 ---
 
 ## Citation

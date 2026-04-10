@@ -42,7 +42,7 @@ Data source: CPTAC-PDAC primary tumours via GDC (`TCGAbiolinks`), raw STAR count
 | [`04_zscore_normalization_and_stabl_selection/`](04_zscore_normalization_and_stabl_selection/) | Signature scoring and STABL feature selection                    |
 | [`05_modeling/`](05_modeling/)                                                                 | Bayesian modelling (categorical, continuous, and comparison)     |
 | [`06_timigp/`](06_timigp/)                                                                     | Immune cell–cell interaction network analysis                    |
-| [`07_gigaTIME/`](07_gigaTIME/)                                                                 | GigaTIME virtual spatial proteomics and BMI-stratified figures   |
+| [`07_gigaTIME/`](07_gigaTIME/)                                                                 | GigaTIME virtual mIF and figures   |
 
 ---
 

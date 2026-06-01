@@ -105,7 +105,7 @@ $$
 \mu_{ij} = \alpha_j + \gamma_{p[i]} + \beta^{\text{Overweight}}_{kj} \cdot \mathbf{I}(\text{BMI}_i \in \text{Overweight}) + \beta^{\text{Obese}}_{kj} \cdot \mathbf{I}(\text{BMI}_i \in \text{Obese})
 $$
 
-where $\mathbf{I}$ is the indicator function, $\alpha_j$ is the baseline signature expression for normal-weight individuals, $\beta^{\text{Overweight}}_{kj}$ is the effect of overweight relative to normal, and $\beta^{\text{Obese}}_{kj}$ is the effect of obesity relative to normal.
+where $\mathbf{I}$ is the indicator function, $\alpha_j$ is the baseline signature expression for normal-weight individuals, $\beta_{kj}^{\text{Overweight}}$ is the effect of overweight relative to normal, and $\beta_{kj}^{\text{Obese}}$ is the effect of obesity relative to normal.
 
 #### Continuous Model
 
@@ -115,14 +115,14 @@ $$
 \mu_{ij} = \alpha_j + \gamma_{p[i]} + \beta^{\text{Slope}}_{kj} \cdot \text{BMI}_{\text{std},i}
 $$
 
-where $\beta^{\text{Slope}}_{kj}$ is the change in signature per unit change in BMI, $\text{BMI}_{\text{std},i}$ is the standardised BMI, and $\alpha_j$ is the expected signature expression at average BMI.
+where $\beta_{kj}^{\text{Slope}}$ is the change in signature per unit change in BMI, $BMI_{\text{std},i}$ is the standardised BMI, and $\alpha_j$ is the expected signature expression at average BMI.
 
 #### Patient-Level Random Intercept
 
 To account for the repeated-measures structure (each patient contributes one observation per signature across multiple cell types), a patient-level random intercept $\gamma_{p[i]}$ is incorporated into both models using non-centred parameterisation:
 
 $$
-\gamma_p = \gamma^{\ast}_{p} \cdot \sigma_{\text{patient}}, \quad \gamma^{\ast}_{p} \sim \mathcal{N}(0, 1), \quad \sigma_{\text{patient}} \sim \operatorname{HalfNormal}(0.50)
+\gamma_p = \gamma^{\ast}_{p} \cdot \sigma_{\text{patient}}, \quad \gamma^{\ast}_{p} \sim \mathcal{N}(0, 1), \quad \sigma_{\text{patient}} \sim \text{HalfNormal}(0.50)
 $$
 
 This term partitions systematic between-patient baseline variation from BMI-associated effects, preventing pseudoreplication from inflating posterior certainty.

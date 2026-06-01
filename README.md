@@ -117,7 +117,7 @@ where $\beta^{\text{Slope}}_{kj}$ is the change in signature per unit change in 
 
 To account for the repeated-measures structure (each patient contributes one observation per signature across multiple cell types), a patient-level random intercept $\gamma_{p[i]}$ is incorporated into both models using non-centred parameterisation:
 
-$$\gamma_p = \gamma^*_p \cdot \sigma_{\text{patient}}, \quad \gamma^*_p \sim \mathcal{N}(0, 1), \quad \sigma_{\text{patient}} \sim \text{HalfNormal}(0.50)$$
+$$\gamma_p = \gamma^{*}_{p} \cdot \sigma_{\text{patient}}, \quad \gamma^{*}_{p} \sim \mathcal{N}(0, 1), \quad \sigma_{\text{patient}} \sim \text{HalfNormal}(0.50)$$
 
 This term partitions systematic between-patient baseline variation from BMI-associated effects, preventing pseudoreplication from inflating posterior certainty.
 

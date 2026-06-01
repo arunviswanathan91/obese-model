@@ -60,7 +60,7 @@ Raw counts were processed with DESeq2 across three pairwise contrasts (overweigh
 
 Pathway enrichment was performed using clusterProfiler with DESeq2 Wald statistics as the ranking metric, covering GO, KEGG, Reactome, and MSigDB gene sets. KEGG pathways were visualised using Pathview.
 
-Single-sample GSEA (ssGSEA) was performed using ImmPort immune gene signatures on VST-normalised data. Statistical testing included Kruskal-Wallis followed by Dunn’s post-hoc test with BH correction.
+Single-sample GSEA (ssGSEA) was performed using ImmPort immune gene signatures on VST-normalised data. Statistical testing included Kruskal-Wallis followed by Dunn's post-hoc test with BH correction.
 
 Volcano plots and heatmaps were generated for visualisation of differential expression results.
 
@@ -95,14 +95,54 @@ STABL feature selection was applied in both categorical (L1 logistic regression)
 
 ### 6. Bayesian Modelling ([`05_modeling/`](05_modeling/))
 
-Two complementary hierarchical Bayesian models were implemented in PyMC:
+Two complementary hierarchical Bayesian models were implemented in PyMC to quantify the magnitude and uncertainty of BMI-associated cellular changes, with partial pooling to share information across biologically related features within each cell type.
 
-- **Continuous model**: Estimates BMI-associated slopes per feature using partial pooling
-- **Categorical model**: Estimates group effects (overweight and obese relative to normal-weight)
+#### Categorical Model
 
-Sampling was performed using NUTS (4 chains, 2,000 draws, target acceptance = 0.99). Credibility was assessed using 95% highest density intervals (HDI), and practical significance was evaluated using ROPE thresholds.
+Captures non-linear associations across BMI groups (Normal, Overweight, Obese). The expected signature expression $\mu_{ij}$ is modelled as:
+
+$$\mu_{ij} = \alpha_j + \gamma_{p[i]} + \beta^{\text{Overweight}}_{kj} \cdot \mathbf{I}(BMI_i \in \text{Overweight}) + \beta^{\text{Obese}}_{kj} \cdot \mathbf{I}(BMI_i \in \text{Obese})$$
+
+where $\mathbf{I}$ is the indicator function, $\alpha_j$ is the baseline signature expression for normal-weight individuals, $\beta^{\text{Overweight}}_{kj}$ is the effect of overweight relative to normal, and $\beta^{\text{Obese}}_{kj}$ is the effect of obesity relative to normal.
+
+#### Continuous Model
+
+Estimates the linear slope of signature change per standardised unit of BMI:
+
+$$\mu_{ij} = \alpha_j + \gamma_{p[i]} + \beta^{\text{Slope}}_{kj} \cdot BMI_{\text{std},i}$$
+
+where $\beta^{\text{Slope}}_{kj}$ is the change in signature per unit change in BMI, $BMI_{\text{std},i}$ is the standardised BMI, and $\alpha_j$ is the expected signature expression at average BMI.
+
+#### Patient-Level Random Intercept
+
+To account for the repeated-measures structure (each patient contributes one observation per signature across multiple cell types), a patient-level random intercept $\gamma_{p[i]}$ is incorporated into both models using non-centred parameterisation:
+
+$$\gamma_p = \gamma^*_p \cdot \sigma_{\text{patient}}, \quad \gamma^*_p \sim \mathcal{N}(0, 1), \quad \sigma_{\text{patient}} \sim \text{HalfNormal}(0.50)$$
+
+This term partitions systematic between-patient baseline variation from BMI-associated effects, preventing pseudoreplication from inflating posterior certainty.
+
+#### Hierarchical Prior Specification
+
+Regularising priors were applied to reduce overfitting, with scales specified per compartment to reflect differences in signal magnitude:
+
+| Compartment   | `celltype_sigma` | `feature_sigma` | `patient_sigma` | `baseline_sigma` | `obs_sigma` |
+| ------------- | :--------------: | :-------------: | :-------------: | :--------------: | :---------: |
+| Non-Immune    | 0.20             | 0.30            | 0.50            | 1.5              | 1.0         |
+| Immune Coarse | 0.25             | 0.40            | 0.50            | 1.5              | 1.0         |
+| Immune Fine   | 0.18             | 0.28            | 0.50            | 1.5              | 1.0         |
+
+#### Inference and Convergence
+
+Posterior distributions were approximated using the No-U-Turn Sampler (NUTS) in PyMC (4 chains, 2,000 tuning steps, 2,000 sampling draws, target acceptance = 0.99). Convergence was assessed using the Gelman–Rubin statistic ($\hat{R} < 1.01$) and effective sample size (ESS > 400), with diagnostics computed using ArviZ.
+
+#### Credibility and Practical Significance
+
+- **Statistical credibility (○):** 95% Highest Density Interval (HDI) strictly excludes zero.
+- **Moderate practical significance (★):** HDI excludes zero and > 95% of the posterior falls outside a ROPE of ±0.1 (categorical) or ±0.01 (continuous).
+- **Strong practical significance (★★):** HDI excludes zero and > 95% of the posterior falls outside a ROPE of ±0.2 (categorical) or ±0.02 (continuous).
 
 A separate module compares continuous and categorical model outputs.
+
 <p align="center">
   <img src="images/graph_model.SVG" width="450" alt="Bayesian Hierarchical Modeling Framework">
   <br>
@@ -145,8 +185,8 @@ Slides were downloaded from the NCI Imaging Data Commons and quality-controlled 
 | ssGSEA          | VST input; Kruskal-Wallis + Dunn BH; adj.p < 0.05                |
 | [BayesPrism](https://github.com/Danko-Lab/BayesPrism)      | chain.length = 2,000; burn.in = 500; thinning = 2                |
 | [STABL](https://github.com/gregbellan/Stabl)           | 500 bootstraps; sample_fraction = 0.5; knockoff FDR; 8 seeds     |
-| Bayesian models | NUTS; 4 chains; 2,000 draws; target acceptance = 0.99            |
-| Convergence     | R-hat < 1.01; ESS > 400                                          |
+| Bayesian models | NUTS; 4 chains; 2,000 tuning + 2,000 draws; target acceptance = 0.99 |
+| Convergence     | $\hat{R}$ < 1.01; ESS > 400                                      |
 | [GigaTIME](https://github.com/prov-gigatime/GigaTIME/)        | 256×256-pixel, 128-pixel stride, Kruskal-Wallis + Mann-whitney U test + BH; adj.p < 0.05 |
 
 ## Compute Environment

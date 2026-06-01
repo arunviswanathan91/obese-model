@@ -101,7 +101,9 @@ Two complementary hierarchical Bayesian models were implemented in PyMC to quant
 
 Captures non-linear associations across BMI groups (Normal, Overweight, Obese). The expected signature expression $\mu_{ij}$ is modelled as:
 
-$$\mu_{ij} = \alpha_j + \gamma_{p[i]} + \beta^{\text{Overweight}}_{kj} \cdot \mathbf{I}(BMI_i \in \text{Overweight}) + \beta^{\text{Obese}}_{kj} \cdot \mathbf{I}(BMI_i \in \text{Obese})$$
+$$
+\mu_{ij} = \alpha_j + \gamma_{p[i]} + \beta^{\text{Overweight}}_{kj} \cdot \mathbf{I}(\text{BMI}_i \in \text{Overweight}) + \beta^{\text{Obese}}_{kj} \cdot \mathbf{I}(\text{BMI}_i \in \text{Obese})
+$$
 
 where $\mathbf{I}$ is the indicator function, $\alpha_j$ is the baseline signature expression for normal-weight individuals, $\beta^{\text{Overweight}}_{kj}$ is the effect of overweight relative to normal, and $\beta^{\text{Obese}}_{kj}$ is the effect of obesity relative to normal.
 
@@ -109,15 +111,19 @@ where $\mathbf{I}$ is the indicator function, $\alpha_j$ is the baseline signatu
 
 Estimates the linear slope of signature change per standardised unit of BMI:
 
-$$\mu_{ij} = \alpha_j + \gamma_{p[i]} + \beta^{\text{Slope}}_{kj} \cdot BMI_{\text{std},i}$$
+$$
+\mu_{ij} = \alpha_j + \gamma_{p[i]} + \beta^{\text{Slope}}_{kj} \cdot \text{BMI}_{\text{std},i}
+$$
 
-where $\beta^{\text{Slope}}_{kj}$ is the change in signature per unit change in BMI, $BMI_{\text{std},i}$ is the standardised BMI, and $\alpha_j$ is the expected signature expression at average BMI.
+where $\beta^{\text{Slope}}_{kj}$ is the change in signature per unit change in BMI, $\text{BMI}_{\text{std},i}$ is the standardised BMI, and $\alpha_j$ is the expected signature expression at average BMI.
 
 #### Patient-Level Random Intercept
 
 To account for the repeated-measures structure (each patient contributes one observation per signature across multiple cell types), a patient-level random intercept $\gamma_{p[i]}$ is incorporated into both models using non-centred parameterisation:
 
-$$\gamma_p = \gamma^{\ast}_{p} \cdot \sigma_{\text{patient}}, \quad \gamma^{\ast}_{p} \sim \mathcal{N}(0, 1), \quad \sigma_{\text{patient}} \sim \text{HalfNormal}(0.50)$$
+$$
+\gamma_p = \gamma^{\ast}_{p} \cdot \sigma_{\text{patient}}, \quad \gamma^{\ast}_{p} \sim \mathcal{N}(0, 1), \quad \sigma_{\text{patient}} \sim \operatorname{HalfNormal}(0.50)
+$$
 
 This term partitions systematic between-patient baseline variation from BMI-associated effects, preventing pseudoreplication from inflating posterior certainty.
 
@@ -186,7 +192,7 @@ Slides were downloaded from the NCI Imaging Data Commons and quality-controlled 
 | [BayesPrism](https://github.com/Danko-Lab/BayesPrism)      | chain.length = 2,000; burn.in = 500; thinning = 2                |
 | [STABL](https://github.com/gregbellan/Stabl)           | 500 bootstraps; sample_fraction = 0.5; knockoff FDR; 8 seeds     |
 | Bayesian models | NUTS; 4 chains; 2,000 tuning + 2,000 draws; target acceptance = 0.99 |
-| Convergence     | $\hat{R}$ < 1.01; ESS > 400                                      |
+| Convergence     | $\hat{R} < 1.01$; ESS > 400                                      |
 | [GigaTIME](https://github.com/prov-gigatime/GigaTIME/)        | 256×256-pixel, 128-pixel stride, Kruskal-Wallis + Mann-whitney U test + BH; adj.p < 0.05 |
 
 ## Compute Environment

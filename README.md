@@ -127,6 +127,21 @@ $$
 
 This term partitions systematic between-patient baseline variation from BMI-associated effects, preventing pseudoreplication from inflating posterior certainty.
 
+<p align="center">
+  <img src="images/graph_model.SVG" width="450" alt="Bayesian Hierarchical Modeling Framework">
+  <br>
+  <sub>
+  <strong>Figure 3. Bayesian hierarchical modeling.</strong>
+  (A) <strong>Categorical Model:</strong> Posterior distributions of mean signature expression (Z-score)
+  across Normal (blue), Overweight (orange), and Obese (red) cohorts. Regression coefficients (β)
+  denote effect sizes relative to Normal; dashed arrow indicates the derived contrast
+  (β<sub>Obese</sub> − β<sub>Overweight</sub>).
+  (B) <strong>Continuous Model:</strong> Linear regression of signature expression against BMI (kg/m²).
+  The slope (β<sub>BMI</sub>) quantifies directional association strength (ΔSignature/ΔBMI).
+  Shaded regions represent the 95% Highest Density Interval (HDI).
+  </sub>
+</p>
+
 #### Hierarchical Prior Specification
 
 Regularising priors were applied to reduce overfitting, with scales specified per compartment to reflect differences in signal magnitude. `celltype_sigma` differs between the two models for the Immune Coarse compartment; all other scales are shared:
@@ -172,21 +187,6 @@ A simulation study ([`05_modeling/Simulation/`](05_modeling/Simulation/)) checks
   injected at the real sample sizes, across four replicates.
   (B) <strong>Calibration:</strong> false-positive rate across 216 null tests, against the
   nominal 5% threshold (dashed line).
-  </sub>
-</p>
-
-<p align="center">
-  <img src="images/graph_model.SVG" width="450" alt="Bayesian Hierarchical Modeling Framework">
-  <br>
-  <sub>
-  <strong>Figure 3. Bayesian hierarchical modeling.</strong>
-  (A) <strong>Categorical Model:</strong> Posterior distributions of mean signature expression (Z-score)
-  across Normal (blue), Overweight (orange), and Obese (red) cohorts. Regression coefficients (β)
-  denote effect sizes relative to Normal; dashed arrow indicates the derived contrast
-  (β<sub>Obese</sub> − β<sub>Overweight</sub>).
-  (B) <strong>Continuous Model:</strong> Linear regression of signature expression against BMI (kg/m²).
-  The slope (β<sub>BMI</sub>) quantifies directional association strength (ΔSignature/ΔBMI).
-  Shaded regions represent the 95% Highest Density Interval (HDI).
   </sub>
 </p>
 

@@ -20,18 +20,20 @@ This directory contains notebooks for fitting a Bayesian hierarchical model in P
 The categorical model estimates separate effects for overweight and obese groups relative to normal-weight as the reference:
 
 ```
-Z_ij = baseline_j + β_overweight[k[j]] × I(BMI = overweight)
+Z_ij = baseline_j + patient_intercept_i
+                  + β_overweight[k[j]] × I(BMI = overweight)
                   + β_obese[k[j]]      × I(BMI = obese)
 ```
 
-This also allows a derived contrast: obese vs. overweight (`feature_effect_obese_vs_overweight`), computed directly from the posterior.
+`patient_intercept_i` is the random intercept for the patient contributing observation `i`. This also allows a derived contrast: obese vs. overweight (`feature_effect_obese_vs_overweight`), computed directly from the posterior.
 
-The hierarchical structure has two levels:
+The hierarchical structure has three levels of pooled effects above the observation-level likelihood:
 
 - **Cell-type level:** shared group effects per lineage
 - **Feature level:** individual deviations from the cell-type mean
+- **Patient level:** random intercept per patient (`patient_intercept`) capturing inter-individual baseline differences in signature score shared across all features from the same tumor; corrects for pseudoreplication, since each patient contributes one row per feature
 
-Non-centered parameterisation was used at the feature level to avoid sampler divergences.
+Non-centered parameterisation was used at the feature and patient levels to avoid sampler divergences.
 
 ---
 
@@ -39,12 +41,13 @@ Non-centered parameterisation was used at the feature level to avoid sampler div
 
 Priors are compartment-specific:
 
-| Parameter                             | Non-immune | Immune fine | Immune coarse |
-| ------------------------------------- | ---------- | ----------- | ------------- |
-| Cell-type effect σ (`celltype_sigma`) | 0.20       | 0.25        | 0.18          |
-| Feature effect σ (`feature_sigma`)    | 0.30       | 0.40        | 0.28          |
-| Baseline σ (`baseline_sigma`)         | 1.5        | 1.5         | 1.5           |
-| Observation noise σ (`obs_sigma`)     | 1.0        | 1.0         | 1.0           |
+| Parameter | Non-immune | Immune fine | Immune coarse |
+| --- | --- | --- | --- |
+| Cell-type effect σ (`celltype_sigma`) | 0.20 | 0.18 | 0.15 |
+| Feature effect σ (`feature_sigma`) | 0.30 | 0.28 | 0.40 |
+| Patient intercept σ (`patient_sigma`) | 0.50 | 0.50 | 0.50 |
+| Baseline σ (`baseline_sigma`) | 1.5 | 1.5 | 1.5 |
+| Observation noise σ (`obs_sigma`) | 1.0 | 1.0 | 1.0 |
 
 ---
 

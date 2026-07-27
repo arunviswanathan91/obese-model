@@ -33,16 +33,16 @@ Data source: CPTAC-PDAC primary tumours via GDC (`TCGAbiolinks`), raw STAR count
 
 ## Repository Structure
 
-| Directory                                                                                      | Purpose                                                          |
-| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| [`00_data_acquisition/`](00_data_acquisition/)                                                 | Data download and preprocessing of CPTAC/TCGA PDAC RNA-seq data  |
-| [`01_bulk_transcriptomics_analysis/`](01_bulk_transcriptomics_analysis/)                       | Differential expression, GSEA, ssGSEA, and KEGG pathway analysis |
-| [`02_single_cell_reference_and_deconvolution/`](02_single_cell_reference_and_deconvolution/)   | scRNA-seq reference construction and BayesPrism deconvolution    |
-| [`03_LLM_signature_curation_with/`](03_LLM_signature_curation_with/)                           | LLM-assisted immune gene signature curation                      |
-| [`04_zscore_normalization_and_stabl_selection/`](04_zscore_normalization_and_stabl_selection/) | Signature scoring and STABL feature selection                    |
-| [`05_modeling/`](05_modeling/)                                                                 | Bayesian modelling (categorical, continuous, and comparison)     |
-| [`06_timigp/`](06_timigp/)                                                                     | Immune cell–cell interaction network analysis                    |
-| [`07_gigaTIME/`](07_gigaTIME/)                                                                 | GigaTIME virtual mIF and figures   |
+| Directory                                                                                      | Purpose                                                              |
+| ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| [`00_data_acquisition/`](00_data_acquisition/)                                                 | Data download and preprocessing of CPTAC/TCGA PDAC RNA-seq data      |
+| [`01_bulk_transcriptomics_analysis/`](01_bulk_transcriptomics_analysis/)                       | Differential expression, GSEA, ssGSEA, and KEGG pathway analysis     |
+| [`02_single_cell_reference_and_deconvolution/`](02_single_cell_reference_and_deconvolution/)   | scRNA-seq reference construction and BayesPrism deconvolution        |
+| [`03_LLM_signature_curation_with/`](03_LLM_signature_curation_with/)                           | LLM-assisted immune gene signature curation                          |
+| [`04_zscore_normalization_and_stabl_selection/`](04_zscore_normalization_and_stabl_selection/) | Signature scoring and STABL feature selection                        |
+| [`05_modeling/`](05_modeling/)                                                                 | Bayesian modelling (categorical, continuous, comparison, simulation) |
+| [`06_timigp/`](06_timigp/)                                                                     | Immune cell–cell interaction network analysis                        |
+| [`07_gigaTIME/`](07_gigaTIME/)                                                                 | GigaTIME virtual mIF and figures                                     |
 
 ---
 
@@ -129,7 +129,17 @@ This term partitions systematic between-patient baseline variation from BMI-asso
 
 #### Hierarchical Prior Specification
 
-Regularising priors were applied to reduce overfitting, with scales specified per compartment to reflect differences in signal magnitude:
+Regularising priors were applied to reduce overfitting, with scales specified per compartment to reflect differences in signal magnitude. `celltype_sigma` differs between the two models for the Immune Coarse compartment; all other scales are shared:
+
+##### Categorical model
+
+| Compartment   | `celltype_sigma` | `feature_sigma` | `patient_sigma` | `baseline_sigma` | `obs_sigma` |
+| ------------- | :--------------: | :-------------: | :-------------: | :--------------: | :---------: |
+| Non-Immune    | 0.20             | 0.30            | 0.50            | 1.5              | 1.0         |
+| Immune Coarse | 0.15             | 0.40            | 0.50            | 1.5              | 1.0         |
+| Immune Fine   | 0.18             | 0.28            | 0.50            | 1.5              | 1.0         |
+
+##### Continuous model
 
 | Compartment   | `celltype_sigma` | `feature_sigma` | `patient_sigma` | `baseline_sigma` | `obs_sigma` |
 | ------------- | :--------------: | :-------------: | :-------------: | :--------------: | :---------: |
@@ -148,6 +158,22 @@ Posterior distributions were approximated using the No-U-Turn Sampler (NUTS) in 
 - **Strong practical significance (★★):** HDI excludes zero and > 95% of the posterior falls outside a ROPE of ±0.2 (categorical) or ±0.02 (continuous).
 
 A separate module compares continuous and categorical model outputs.
+
+#### Cohort-Adequacy Simulation
+
+A simulation study ([`05_modeling/Simulation/`](05_modeling/Simulation/)) checks whether the model can pick up real BMI-associated variance at the actual cohort sizes (N = 51/58/18), rather than external replication. It reuses the same hierarchy, priors, and sampler settings, and reports two arms: a power arm with a known effect (0.5 SD) injected into 50% of features, and a null arm with no injected effect. Across four replicates, the model recovered the injected effect with ~59% power and a 0% false-positive rate (well below the nominal 5%), indicating adequate power without inflated false discovery at this sample size.
+
+<p align="center">
+  <img src="images/simulation.png" width="550" alt="Cohort-adequacy simulation results">
+  <br>
+  <sub>
+  <strong>Figure 4. Cohort-adequacy simulation.</strong>
+  (A) <strong>Power:</strong> recovery rate for a true overweight-vs-normal effect (0.5 SD)
+  injected at the real sample sizes, across four replicates.
+  (B) <strong>Calibration:</strong> false-positive rate across 216 null tests, against the
+  nominal 5% threshold (dashed line).
+  </sub>
+</p>
 
 <p align="center">
   <img src="images/graph_model.SVG" width="450" alt="Bayesian Hierarchical Modeling Framework">

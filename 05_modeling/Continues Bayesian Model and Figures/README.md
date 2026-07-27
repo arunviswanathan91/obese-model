@@ -19,17 +19,18 @@ This directory contains notebooks for fitting a Bayesian hierarchical model in P
 The continuous model estimates a per-feature BMI slope using partial pooling across signatures within each cell type:
 
 ```
-Z_ij = baseline_j + slope_j × BMI_standardized_i
+Z_ij = baseline_j + patient_intercept_i + slope_j × BMI_standardized_i
 ```
 
-BMI was z-score standardised before fitting. Slopes reflect the expected change in signature score per standard deviation of BMI.
+BMI was z-score standardised before fitting. Slopes reflect the expected change in signature score per standard deviation of BMI. `patient_intercept_i` is the random intercept for the patient contributing observation `i`.
 
-The hierarchical structure has two levels:
+The hierarchical structure has three levels of pooled effects above the observation-level likelihood:
 
 - **Cell-type level:** shared slope distribution per lineage (`celltype_bmi_slope`)
 - **Feature level:** individual feature slopes as deviations from the cell-type mean (`feature_bmi_slope`)
+- **Patient level:** random intercept per patient (`patient_intercept`) capturing inter-individual baseline differences in signature score shared across all features from the same tumor; corrects for pseudoreplication, since without it patient-level noise is misattributed to the BMI slope
 
-Non-centered parameterisation was used at the feature level to avoid sampler divergences.
+Non-centered parameterisation was used at the feature and patient levels to avoid sampler divergences.
 
 ---
 
@@ -37,12 +38,13 @@ Non-centered parameterisation was used at the feature level to avoid sampler div
 
 Priors are compartment-specific to reflect differences in expected signal magnitude and noise:
 
-| Parameter                            | Non-immune | Immune fine | Immune coarse |
-| ------------------------------------ | ---------- | ----------- | ------------- |
-| Cell-type slope σ (`celltype_sigma`) | 0.20       | 0.25        | 0.18          |
-| Feature slope σ (`feature_sigma`)    | 0.30       | 0.40        | 0.28          |
-| Baseline σ (`baseline_sigma`)        | 1.5        | 1.5         | 1.5           |
-| Observation noise σ (`obs_sigma`)    | 1.0        | 1.0         | 1.0           |
+| Parameter | Non-immune | Immune fine | Immune coarse |
+| --- | --- | --- | --- |
+| Cell-type slope σ (`celltype_sigma`) | 0.20 | 0.18 | 0.25 |
+| Feature slope σ (`feature_sigma`) | 0.30 | 0.28 | 0.40 |
+| Patient intercept σ (`patient_sigma`) | 0.50 | 0.50 | 0.50 |
+| Baseline σ (`baseline_sigma`) | 1.5 | 1.5 | 1.5 |
+| Observation noise σ (`obs_sigma`) | 1.0 | 1.0 | 1.0 |
 
 ---
 
